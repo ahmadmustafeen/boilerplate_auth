@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
+import { FORGET_PASSWORD, SIGN_UP } from "../../../constants/routes";
 import "./style.css";
 
 const SignIn = () => {
@@ -32,10 +33,18 @@ const SignIn = () => {
               <p>
                 Don't have an account?{" "}
                 <span className="signup-link">
-                <Link to="/register">Sign Up</Link>
+                  <Link to={SIGN_UP}>Sign Up</Link>
                 </span>
               </p>
-              </div>
+            </div>
+            <div className="signup-container">
+              <p>
+                Forgot Password?{" "}
+                <span className="signup-link">
+                  <Link to={FORGET_PASSWORD}>Reset Now</Link>
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </div>

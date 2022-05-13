@@ -2,6 +2,7 @@ import React from "react";
 import { Button, } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
+import { SIGN_IN } from "../../../constants/routes";
 
 const SignUp = () => {
   return (
@@ -35,7 +36,7 @@ const SignUp = () => {
               <p>
                 Already have an account?{" "}
                 <span className="signup-link">
-                <Link to="/login">Sign In</Link>
+                <Link to={SIGN_IN}>Sign In</Link>
                 </span>
               </p>
               </div>

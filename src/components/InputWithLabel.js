@@ -8,7 +8,7 @@ const InputWithLabel = props => {
   return (
     <div className="form-group">
       <InputGroup size="sm" className="mb-3">
-        <InputGroup.Text id="inputGroup-sizing-sm">{label}</InputGroup.Text>
+        <InputGroup.Text id="inputGroup-sizing-sm" style={{minWidth:"120px"}}>{label}</InputGroup.Text>
         <FormControl
         className="shadow-none"
           aria-label="Small"
