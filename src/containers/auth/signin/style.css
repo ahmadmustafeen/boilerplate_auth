@@ -21,7 +21,7 @@
 .screen-content{
     width: 40%;
     border-radius: 20px;
-    height: 500px;
+    min-height: 500px;
     background-color: white;
 }
 .screen-content-header{
@@ -38,7 +38,7 @@
     font-weight: 600;
 }
 .screen-content-body{
-    padding: 50px 0;
+    padding: 25px 0;
     margin: auto;
     width: 100%;
     display: flex;
