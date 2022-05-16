@@ -21,3 +21,23 @@ export const SigninApiCall = async (parseData) => {
         throw new Error("Login Failed");
     }
 }
+
+export const SignUpApiCall = async (parseData) => {
+    console.log(parseData);
+    const response =  await axios.post(API_ENDPOINTS.SIGNUP,parseData);
+    const {data,status} = response;
+    if(status===200 || status===201){
+        if(data.status){
+            alert(data.message||"Signup Successful");
+            return data.data
+        }
+        else{
+            alert(data.message||"Signup Failed");
+            return {}
+        }
+    }
+    else{
+        alert("Signup Failed");
+        throw new Error("Signup Failed");
+    }
+}
