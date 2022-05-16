@@ -1,10 +1,9 @@
-import axios from "axios";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
-import { API_ENDPOINTS } from "../../../constants";
 import { FORGET_PASSWORD, SIGN_UP } from "../../../constants/routes";
+import { SigninApiCall } from "../../../helpers";
 import "./style.css";
 
 const SignIn = () => {
@@ -23,18 +22,12 @@ const SignIn = () => {
     if (state.username === "" || state.password === "") {
       return alert("Please fill all the fields");
     }
-    axios
-      .post(API_ENDPOINTS.LOGIN, state)
-      .then((res) => {
-        const { data } = res;
-        if (data.status) {
-          alert("Login Successful");
-        } else {
-          alert("Login Failed");
-        }
+    SigninApiCall(state)
+      .then((data) => {
+        console.log(data);
       })
       .catch((err) => {
-        alert("Login Failed");
+        console.log(err);
       });
   };
   return (
