@@ -1,11 +1,42 @@
+import axios from "axios";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
+import { API_ENDPOINTS } from "../../../constants";
 import { FORGET_PASSWORD, SIGN_UP } from "../../../constants/routes";
 import "./style.css";
 
 const SignIn = () => {
+  const [state, setState] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (key, value) => {
+    setState({
+      ...state,
+      [key]: value,
+    });
+  };
+  const onPressLogin = () => {
+    if (state.username === "" || state.password === "") {
+      return alert("Please fill all the fields");
+    }
+    axios
+      .post(API_ENDPOINTS.LOGIN, state)
+      .then((res) => {
+        const { data } = res;
+        if (data.status) {
+          alert("Login Successful");
+        } else {
+          alert("Login Failed");
+        }
+      })
+      .catch((err) => {
+        alert("Login Failed");
+      });
+  };
   return (
     <div className="overlay">
       <div className="screen-container">
@@ -16,12 +47,21 @@ const SignIn = () => {
           <div className="screen-content-body">
             <div className="form-container">
               <form>
-                <InputWithLabel label="Username" />
-                <InputWithLabel label="Password" />
+                <InputWithLabel
+                  label="Username"
+                  value={state.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                />
+                <InputWithLabel
+                  label="Password"
+                  value={state.password}
+                  onChange={(e) => handleChange("password", e.target.value)}
+                />
                 <div className="submitbuttoncontainer-login">
                   <Button
                     variant="primary"
-                    type="submit"
+                    type="button"
+                    onClick={onPressLogin}
                     style={{ width: "50%" }}
                   >
                     Sign In
