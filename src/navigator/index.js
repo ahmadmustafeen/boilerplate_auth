@@ -9,7 +9,9 @@ import {
   SIGN_UP,
   FORGET_PASSWORD,
   RESET_PASSWORD,
+  OTP_SCREEN,
 } from "../constants/routes";
+import OtpScreen from "../containers/auth/otp";
 
 const Navigator = () => {
   return (
@@ -18,6 +20,7 @@ const Navigator = () => {
       <Route path={SIGN_UP} element={<SignUp />} />
       <Route path={FORGET_PASSWORD} element={<ForgetPassword />} />
       <Route path={RESET_PASSWORD} element={<ResetPassword />} />
+      <Route path={OTP_SCREEN} element={<OtpScreen />} />
       <Route path="*" element={<Navigate to={SIGN_IN} replace />} />
     </Routes>
   );
