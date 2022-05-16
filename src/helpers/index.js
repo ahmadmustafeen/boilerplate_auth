@@ -61,3 +61,23 @@ export const ForgetPasswordApiCall = async (parseData) => {
         throw new Error("Forget Password Failed");
     }
 }
+
+export const ResetPasswordApiCall = async (parseData) => {
+    console.log(parseData);
+    const response =  await axios.post(API_ENDPOINTS.RESET_PASSWORD,parseData);
+    const {data,status} = response;
+    if(status===200){
+        if(data.status){
+            alert(data.message||"Password reset successful");
+            return data.data
+        }
+        else{
+            alert(data.message||"Password reset failed");
+            return {}
+        }
+    }
+    else{
+        alert("Reset Password Failed");
+        throw new Error("Reset Password Failed");
+    }
+}
