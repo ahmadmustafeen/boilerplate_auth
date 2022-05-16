@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
-import { RESET_PASSWORD, SIGN_IN } from "../../../constants/routes";
+import { SIGN_IN } from "../../../constants/routes";
 import { ForgetPasswordApiCall } from "../../../helpers";
 
 const ForgetPassword = () => {
