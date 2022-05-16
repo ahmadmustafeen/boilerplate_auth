@@ -42,7 +42,7 @@ const ResetPassword = () => {
       <div className="screen-container">
         <div className="screen-content">
           <div className="screen-content-header">
-            <h1>Forget Password</h1>
+            <h1>Reset Password</h1>
           </div>
           <div className="screen-content-body">
             <div className="form-container">
