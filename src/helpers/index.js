@@ -41,3 +41,23 @@ export const SignUpApiCall = async (parseData) => {
         throw new Error("Signup Failed");
     }
 }
+
+export const ForgetPasswordApiCall = async (parseData) => {
+    console.log(parseData);
+    const response =  await axios.post(API_ENDPOINTS.FORGET_PASSWORD,parseData);
+    const {data,status} = response;
+    if(status===200){
+        if(data.status){
+            alert(data.message||"OTP sent to your email");
+            return data.data
+        }
+        else{
+            alert(data.message||"Sent to fail the OTP");
+            return {}
+        }
+    }
+    else{
+        alert("Forget Password Failed");
+        throw new Error("Forget Password Failed");
+    }
+}

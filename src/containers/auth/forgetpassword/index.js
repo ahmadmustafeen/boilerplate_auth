@@ -3,8 +3,29 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
 import { RESET_PASSWORD, SIGN_IN } from "../../../constants/routes";
+import { ForgetPasswordApiCall } from "../../../helpers";
 
 const ForgetPassword = () => {
+  const [state, setState] = React.useState({
+    email: "",
+  });
+
+  const handleChange = (key,value) => {
+    setState({
+      ...state,
+      [key]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    ForgetPasswordApiCall(state).then((data) => {
+      console.log(data);
+    });
+  
+    console.log(state);
+  };
+
   return (
     <div className="overlay">
       <div className="screen-container">
@@ -15,14 +36,19 @@ const ForgetPassword = () => {
           <div className="screen-content-body">
             <div className="form-container">
               <form>
-                <InputWithLabel label="Username" />
+                <InputWithLabel label="Username"
+                value={state.email}
+                name="email"
+                onChange={event=>handleChange('email',event.target.value)}
+                 />
                 <div className="submitbuttoncontainer-login">
                   <Button
                     variant="primary"
                     type="button"
+                    onClick={handleSubmit}
                     style={{ width: "50%" }}
                   >
-                  <Link to={RESET_PASSWORD} style={{color:'white'}}>Send Reset Link</Link>
+                  Send Reset Link
                   </Button>
                 </div>
               </form>
