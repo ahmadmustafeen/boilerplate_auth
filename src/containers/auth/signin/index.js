@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
-import { FORGET_PASSWORD, SIGN_UP } from "../../../constants/routes";
+import { DASHBOARD, FORGET_PASSWORD, SIGN_UP } from "../../../constants/routes";
 import { SigninApiCall, ValidateEmail, ValidatePassword } from "../../../helpers";
 import "./style.css";
 
@@ -30,7 +30,7 @@ const SignIn = () => {
 
     SigninApiCall(state)
       .then((data) => {
-        if(Object.keys(data).length) navigate(SIGN_UP)
+        if(Object.keys(data).length) navigate(DASHBOARD)
       })
       .catch((err) => {
         console.log(err);
