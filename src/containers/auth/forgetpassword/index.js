@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
-import { RESET_PASSWORD, SIGN_IN } from "../../../constants/routes";
+import { OTP_SCREEN, RESET_PASSWORD, SIGN_IN } from "../../../constants/routes";
 
 const ForgetPassword = () => {
   return (
@@ -22,7 +22,7 @@ const ForgetPassword = () => {
                     type="button"
                     style={{ width: "50%" }}
                   >
-                  <Link to={RESET_PASSWORD} style={{color:'white'}}>Send Reset Link</Link>
+                  <Link to={OTP_SCREEN} style={{color:'white'}}>Send Reset Link</Link>
                   </Button>
                 </div>
               </form>

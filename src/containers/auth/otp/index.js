@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import OtpInput from "react-otp-input";
 import { Link } from "react-router-dom";
-import { SIGN_IN } from "../../../constants/routes";
+import { RESET_PASSWORD } from "../../../constants/routes";
 
 const OtpScreen = () => {
   const [otp, setOtp] = React.useState("");
@@ -36,18 +36,10 @@ const OtpScreen = () => {
                     type="submit"
                     style={{ width: "50%" }}
                   >
-                    Confirm Password
-                  </Button>
+                     <Link to={RESET_PASSWORD} style={{color:'white'}}>Proceed</Link>
+                 </Button>
                 </div>
               </form>
-            </div>
-            <div className="signup-container">
-              <p>
-                Back to{" "}
-                <span className="signup-link">
-                  <Link to={SIGN_IN}>Sign In</Link>
-                </span>
-              </p>
             </div>
           </div>
         </div>
