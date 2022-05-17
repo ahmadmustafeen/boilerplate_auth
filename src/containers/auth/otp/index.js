@@ -1,13 +1,37 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import OtpInput from "react-otp-input";
-import { Link } from "react-router-dom";
-import { SIGN_IN } from "../../../constants/routes";
+import { Link,useLocation,useNavigate } from "react-router-dom";
+import { RESET_PASSWORD, SIGN_IN } from "../../../constants/routes";
+import { VerifyOtpApiCall } from "../../../helpers";
 
-const OtpScreen = () => {
+const OtpScreen = props => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const email = location?.state?.email || "";
   const [otp, setOtp] = React.useState("");
-
+  const [loader, setLoader] = React.useState(false);
   const handleChange = (otp) => setOtp(otp);
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setLoader(true);
+    VerifyOtpApiCall({email,otp}).then((data) => {
+      if(Object.keys(data).length){
+        navigate(RESET_PASSWORD,{state:{email}})
+      }
+    }
+    ).catch(err=>{
+      console.log(err);
+    }
+    ).finally(()=>{
+
+      setLoader(false);
+    }
+    )
+  }
   return (
     <div className="overlay">
       <div className="screen-container">
@@ -33,10 +57,13 @@ const OtpScreen = () => {
                 <div className="submitbuttoncontainer-login">
                   <Button
                     variant="primary"
-                    type="submit"
+                    type="button"
+                    disabled={loader}
+
+                    onClick={handleSubmit}
                     style={{ width: "50%" }}
                   >
-                    Confirm Password
+                    Proceed
                   </Button>
                 </div>
               </form>

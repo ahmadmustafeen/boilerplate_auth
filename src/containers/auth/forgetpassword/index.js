@@ -1,9 +1,10 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
-import { SIGN_IN } from "../../../constants/routes";
-import { ForgetPasswordApiCall } from "../../../helpers";
+import { INVALID_EMAIL } from "../../../constants/messages";
+import { OTP_SCREEN, SIGN_IN } from "../../../constants/routes";
+import { ForgetPasswordApiCall, ValidateEmail } from "../../../helpers";
 
 const ForgetPassword = () => {
   const [state, setState] = React.useState({
@@ -17,13 +18,18 @@ const ForgetPassword = () => {
     });
   };
 
+  const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!ValidateEmail(state.email,INVALID_EMAIL)) return false
     ForgetPasswordApiCall(state).then((data) => {
-      console.log(data);
-    });
-  
-    console.log(state);
+      if(typeof data !== "object"){
+        navigate(OTP_SCREEN,{state:{
+          email:state.email,
+        }})
+      }
+      console.log(data,"this is the response");
+    });  
   };
 
   return (

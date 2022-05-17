@@ -82,6 +82,22 @@ export const ResetPasswordApiCall = async (parseData) => {
     }
 }
 
+export const VerifyOtpApiCall = async (parseData) => {
+    console.log(parseData);
+    const response =  await axios.post(API_ENDPOINTS.VERIFY_OTP,parseData);
+    const {data,status} = response;
+    if(status===200){
+        if(data.status){
+            alert(data.message||"OTP verified");
+            return data.data
+        }
+        else{
+            alert(data.message||"OTP verification failed");
+            return {}
+        }
+    }
+}
+
 
 
 
