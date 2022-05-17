@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
 import { FORGET_PASSWORD, SIGN_UP } from "../../../constants/routes";
-import { SigninApiCall } from "../../../helpers";
+import { SigninApiCall, ValidateEmail, ValidatePassword } from "../../../helpers";
 import "./style.css";
 
 const SignIn = () => {
@@ -11,6 +11,7 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+  const [loader, setLoader] = React.useState(false);
 
   const handleChange = (key, value) => {
     setState({
@@ -18,17 +19,25 @@ const SignIn = () => {
       [key]: value,
     });
   };
+  const navigate = useNavigate()
+
+
+
   const onPressLogin = () => {
-    if (state.username === "" || state.password === "") {
-      return alert("Please fill all the fields");
-    }
+    if(!ValidateEmail(state.email,"Please enter valid email")) return false
+    if (!ValidatePassword(state.password, "Please enter valid password")) return false
+    setLoader(true)
+
     SigninApiCall(state)
       .then((data) => {
-        console.log(data);
+        if(Object.keys(data).length) navigate(SIGN_UP)
       })
       .catch((err) => {
         console.log(err);
-      });
+      }).finally(() => {
+        setLoader(false)
+      }
+      )
   };
   return (
     <div className="overlay">
@@ -54,6 +63,7 @@ const SignIn = () => {
                   <Button
                     variant="primary"
                     type="button"
+                    disabled={loader}
                     onClick={onPressLogin}
                     style={{ width: "50%" }}
                   >

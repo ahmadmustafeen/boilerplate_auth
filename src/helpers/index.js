@@ -81,3 +81,48 @@ export const ResetPasswordApiCall = async (parseData) => {
         throw new Error("Reset Password Failed");
     }
 }
+
+
+export const ValidateIsEmpty = (value,message) => {
+    if (!value) {
+        alert(message);
+        return false;
+    }
+    return true;
+}
+
+export const ValidateLength = (value,min,max,message) => {
+    if (value.length < min || value.length > max) {
+        alert(message);
+        return false;
+    }
+    return true;
+}
+
+export const ValidateEmail = (value,message) => {
+    if (!value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+        alert(message);
+        return false;
+    }
+    return true;
+}
+
+export const ValidatePassword = (value,message) => {
+    //uncomment this line when you want to validate password
+    // if (!value.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)) {
+    //     alert(message);
+    //     return false;
+    // }
+    if(!value){
+        alert(message);
+        return false;
+    }
+    return true;
+}
+export const ValidatePhoneNumber = (value,message) => {
+    if (!value.match(/^[0-9]{10}$/)) {
+        alert(message);
+        return false;
+    }
+    return true;
+}
