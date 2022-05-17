@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import OtpInput from "react-otp-input";
 import { Link } from "react-router-dom";
-import { InputWithLabel } from "../../../components";
 import { SIGN_IN } from "../../../constants/routes";
 
 const OtpScreen = () => {
@@ -26,7 +25,7 @@ const OtpScreen = () => {
                   value={otp}
                   onChange={handleChange}
                   numInputs={4}
-                  isInputNum
+                  
                   inputStyle={{ width: "50px", height: "50px" }}
                   separator={<span>-</span>}
                 />
