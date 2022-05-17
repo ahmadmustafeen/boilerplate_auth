@@ -2,7 +2,7 @@ import React from "react";
 import { FormControl, InputGroup } from "react-bootstrap";
 
 const InputWithLabel = (props) => {
-  const { label, value, onChange } = props;
+  const { label, value, onChange,inNumOnly } = props;
   return (
     <div className="form-group">
       <InputGroup size="sm" className="mb-3">
@@ -15,6 +15,7 @@ const InputWithLabel = (props) => {
         <FormControl
           className="shadow-none"
           value={value}
+          inputMode={inNumOnly ? "numeric" : ""}
           onChange={onChange}
           aria-label="Small"
           aria-describedby="inputGroup-sizing-sm"

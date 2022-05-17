@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
+import {  INVALID_EMAIL_FORMAT, INVALID_PASSWORD } from "../../../constants/messages";
 import { DASHBOARD, FORGET_PASSWORD, SIGN_UP } from "../../../constants/routes";
 import { SigninApiCall, ValidateEmail, ValidatePassword } from "../../../helpers";
 import "./style.css";
@@ -24,8 +25,8 @@ const SignIn = () => {
 
 
   const onPressLogin = () => {
-    if(!ValidateEmail(state.email,"Please enter valid email")) return false
-    if (!ValidatePassword(state.password, "Please enter valid password")) return false
+    if(!ValidateEmail(state.email,INVALID_EMAIL_FORMAT)) return false
+    if (!ValidatePassword(state.password,INVALID_PASSWORD)) return false
     setLoader(true)
 
     SigninApiCall(state)

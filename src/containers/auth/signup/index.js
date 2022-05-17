@@ -1,12 +1,13 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { InputWithLabel } from "../../../components";
-import { SIGN_IN } from "../../../constants/routes";
-import { SignUpApiCall } from "../../../helpers";
+import { ENTER_CONFIRM_PASSWORD, ENTER_FIRST_NAME, ENTER_LAST_NAME, ENTER_PASSWORD, ENTER_PHONE, INVALID_CONFIRM_PASSWORD, INVALID_EMAIL_FORMAT } from "../../../constants/messages";
+import { DASHBOARD, SIGN_IN } from "../../../constants/routes";
+import { SignUpApiCall, ValidateEmail, ValidateIsEmpty, ValidateIsTrue } from "../../../helpers";
 
 const SignUp = () => {
-  const [state, setState]  = React.useState({
+  const [state, setState] = React.useState({
     email: "",
     password: "",
     confirmPassword: "",
@@ -14,28 +15,40 @@ const SignUp = () => {
     lastName: "",
     phoneNumber: "",
   });
-
+  const [loader, setLoader] = React.useState(false);
   const handleChange = (key, value) => {
     setState({
       ...state,
       [key]: value,
     });
   };
-const signUp = () => {
-  if (state.email === "" || state.password === "" || state.confirmPassword === "" || state.firstName === "" || state.lastName === "" || state.phoneNumber === "") {
-    return alert("Please fill all the fields");
+
+  const validation = () => {
+    return ValidateIsEmpty(state.firstName, ENTER_FIRST_NAME) &&
+      ValidateIsEmpty(state.lastName, ENTER_LAST_NAME) &&
+      ValidateIsEmpty(state.phoneNumber, ENTER_PHONE) &&
+      ValidateEmail(state.email, INVALID_EMAIL_FORMAT) &&
+      ValidateIsEmpty(state.password, ENTER_PASSWORD) &&
+      ValidateIsEmpty(state.confirmPassword, INVALID_CONFIRM_PASSWORD) &&
+      ValidateIsTrue(state.password === state.confirmPassword, ENTER_CONFIRM_PASSWORD);
+
   }
-  if (state.password !== state.confirmPassword) {
-    return alert("Password and Confirm Password do not match");
+
+  const navigate = useNavigate()
+  const signUp = () => {
+    if (!validation()) return false
+    setLoader(true)
+    SignUpApiCall(state).then((data) => {
+      if (Object.keys(data).length) navigate(DASHBOARD)
+    }
+    ).catch((err) => {
+      console.log(err);
+    }
+    ).finally(() => {
+      setLoader(false)
+    }
+    )
   }
-  SignUpApiCall(state).then((data) => {
-    console.log(data);
-  }
-  ).catch((err) => {
-    console.log(err);
-  }
-  );
-}
   return (
     <div className="overlay">
       <div className="screen-container">
@@ -58,6 +71,7 @@ const signUp = () => {
                 />
                 <InputWithLabel
                   label="Phone"
+                  isNumOnly={true}
                   value={state.phoneNumber}
                   onChange={(e) => handleChange("phoneNumber", e.target.value)}
                 />
@@ -82,6 +96,7 @@ const signUp = () => {
                   <Button
                     variant="primary"
                     type="button"
+                    disabled={loader}
                     onClick={signUp}
                     style={{ width: "50%" }}
                   >

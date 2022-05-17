@@ -83,6 +83,15 @@ export const ResetPasswordApiCall = async (parseData) => {
 }
 
 
+
+
+export const ValidateIsTrue = (value,message) => {
+    if(!value){
+        alert(message);
+        return false
+    }
+    return true
+}
 export const ValidateIsEmpty = (value,message) => {
     if (!value) {
         alert(message);
